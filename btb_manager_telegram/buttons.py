@@ -89,9 +89,9 @@ def current_value(cur):
     for report in reports:
         if ts_now - report["time"] > dt.timedelta(days=delta).total_seconds():
             if (
-                ts_now - report["time"] - dt.timedelta(days=delta).total_seconds()
-                < dt.timedelta(hours=2).total_seconds()
-                and report["total_usdt"] > 0
+                    ts_now - report["time"] - dt.timedelta(days=delta).total_seconds()
+                    < dt.timedelta(hours=2).total_seconds()
+                    and report["total_usdt"] > 0
             ):
                 amount_btc_old = report["total_usdt"] / report["tickers"]["BTC"]
                 rate = (amount_btc_now - amount_btc_old) / amount_btc_old
@@ -427,7 +427,7 @@ def bot_stats(cur):
         ) / get_current_price(initialCoinbridgeID, "USDT")
 
     initialCoinLiveBridgeValue = (
-        initialCoinAmount * initialCoinLiveBridgePrice
+            initialCoinAmount * initialCoinLiveBridgePrice
     )  # buy & hold value
 
     currentCoinLiveBridgeValue = currentCoinAmount * currentCoinLiveBridgePrice
@@ -435,12 +435,15 @@ def bot_stats(cur):
     convertibleStartCoinAmount = currentCoinLiveBridgeValue / initialCoinLiveBridgePrice
 
     # always show profit in bot start coin's Bridge
+    changeFiatPercentage = (
+            (currentCoinLiveBridgeValue - initialCoinFiatValue) / initialCoinFiatValue * 100
+    )
     changeFiat = (
-        (currentCoinLiveBridgeValue - initialCoinFiatValue) / initialCoinFiatValue * 100
+        (currentCoinLiveBridgeValue - initialCoinFiatValue)
     )
 
     changeStartCoin = (
-        (convertibleStartCoinAmount - initialCoinAmount) / initialCoinAmount * 100
+            (convertibleStartCoinAmount - initialCoinAmount) / initialCoinAmount * 100
     )
 
     max_usd = max(reports, key=lambda a: a["total_usdt"])["total_usdt"]
@@ -452,13 +455,13 @@ def bot_stats(cur):
     message += (
         "`"
         f"{i18n.t('bot_stats.bot_started', date=start_date.strftime('%d/%m/%y'), no_days=numDays)}"
-        f"\n{i18n.t('bot_stats.nb_jumps')} {numCoinJumps} ({round(numCoinJumps / max(numDays,1),1)} jumps/day)"
+        f"\n{i18n.t('bot_stats.nb_jumps')} {numCoinJumps} ({round(numCoinJumps / max(numDays, 1), 1)} jumps/day)"
         f"\n{i18n.t('bot_stats.start_coin')} {float_strip(initialCoinAmount, 8)} {initialCoinID} / {round(initialCoinFiatValue, 2)} {displayCurrency}"
         f"\n{i18n.t('bot_stats.current_coin')} {float_strip(currentCoinAmount, 8)} {currentCoinID} / {round(currentCoinLiveBridgeValue, 2)} {displayCurrency}"
-        f"\n{i18n.t('bot_stats.profit')} {'+' if changeStartCoin >= 0 else ''}{round(changeStartCoin, 2)}% {initialCoinID} / {'+' if changeFiat >= 0 else ''}{round(changeFiat, 2)}% {displayCurrency}"
+        f"\n{i18n.t('bot_stats.profit')} {'+' if changeFiatPercentage >= 0 else ''}{round(changeFiatPercentage, 2)}% / {'+' if changeFiat >= 0 else ''}{round(changeFiat, 2)} {displayCurrency}"
         f"\n{i18n.t('bot_stats.hodl')} {float_strip(initialCoinAmount, 8)} {initialCoinID} / {round(initialCoinLiveBridgeValue, 2)} {displayCurrency}"
-        f"\n{i18n.t('bot_stats.min_max_usd')} {round(min_usd,2)} / {round(max_usd,2)}"
-        f"\n{i18n.t('bot_stats.min_max_btc')} {float_strip(min_btc,8)} / {float_strip(max_btc,8)}"
+        f"\n{i18n.t('bot_stats.min_max_usd')} {round(min_usd, 2)} / {round(max_usd, 2)}"
+        f"\n{i18n.t('bot_stats.min_max_btc')} {float_strip(min_btc, 8)} / {float_strip(max_btc, 8)}"
         "`"
     )
 
