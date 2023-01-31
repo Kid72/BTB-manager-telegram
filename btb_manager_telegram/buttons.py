@@ -114,6 +114,7 @@ def current_value(cur):
         f"{i18n.t('value.exchange_rate_purchased', rate=float_strip(buy_price / alt_amount, 8), bridge=bridge, coin=current_coin)}\n",
         f"{i18n.t('value.exchange_rate_now', rate=float_strip(usd_price, 8), coin=current_coin)}\n",
         f"{i18n.t('value.value_change', change=round((balance * usd_price - buy_price) / buy_price * 100, 2))}\n",
+        f"{i18n.t('value.value_change_usdt', change_usdt=round((balance * usd_price - buy_price), 2))}\n",
         f"{i18n.t('value.value_usd', value=round(balance * usd_price, 2))}\n",
         f"{i18n.t('value.value_btc', value=float_strip(balance * btc_price, 8))}\n",
         f"{i18n.t('value.bought_for', value=round(buy_price, 2), coin=bridge)}\n",
