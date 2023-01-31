@@ -35,7 +35,7 @@ value:
   exchange_rate_purchased: "Курс покупки     : %{rate} %{coin}/%{bridge}"
   exchange_rate_now:       "Курс сейчас      : %{rate} %{coin}/USD"
   value_change:            "Изменение в %    : %{change} %"
-  value_change_usdt:       "Профит в USDT    : %{change_usdt} %"
+  value_change_usdt:       "Профит в USD     : %{change_usdt} USD"
   value_usd:               "Стоимость в USDT : %{value}"
   value_btc:               "Стоимость в BTC  : %{value}"
   bought_for:              "Куплен за        : %{value} %{coin}"
